@@ -1,0 +1,129 @@
+================================================================================
+BENCHMARK RESULTS FOR: llama3.2:latest
+================================================================================
+
+MODEL METADATA
+----------------------------------------
+Name:           llama3.2:latest
+Parameters:     3.2B
+Quantization:   Q4_K_M
+Size:           1.9 GB
+Tool Support:   Yes
+Family:         llama
+Completed:      2026-04-04 13:46:10
+
+TASK RESULTS
+----------------------------------------
+
+
+──────────────────────────────────────────────────────────────────────
+Task: speed_warmup
+Status: ok
+Score: 100.0%
+TPS: 99.3 tokens/sec
+Time: 121.3s
+Tokens: 53 out, 39 in
+Keywords Hit: def, return, sum
+
+--- RESPONSE ---
+def sum_list(numbers):
+    """
+    Returns the sum of a list of integers.
+
+    Args:
+        numbers (list): A list of integers.
+
+    Returns:
+        int: The sum of the integers in the list.
+    """
+    return sum(numbers)
+
+──────────────────────────────────────────────────────────────────────
+Task: speed_simple
+Status: ok
+Score: 100.0%
+TPS: 88.2 tokens/sec
+Time: 6.7s
+Tokens: 512 out, 56 in
+Keywords Hit: @dataclass, def __post_init__, name, ip, mac
+
+--- RESPONSE ---
+Here's an example of how you can define a Python dataclass to represent a network interface:
+
+```python
+from dataclasses import dataclass, field
+from enum import Enum
+import re
+
+class Status(Enum):
+    """Enum for the status of a network interface"""
+    UP = "up"
+    DOWN = "down"
+
+@dataclass
+class NetworkInterface:
+    """Dataclass to represent a network interface"""
+    name: str
+    ip: str
+    mac: str
+    status: Status
+    speed_gbps: float
+
+    @classmethod
+    def from_dict(cls, data):
+        """Create an instance of NetworkInterface from a dictionary"""
+        return cls(
+            name=data.get("name"),
+            ip=data.get("ip"),
+            mac=data.get("mac"),
+            status=Status(data.get("status")),
+            speed_gbps=float(data.get("speed_gbps", 0.0))
+        )
+
+    def __post_init__(self):
+        """Validate the instance after initialization"""
+        if not self.name:
+            raise ValueError("Name is required")
+        
+        # Validate IP address
+        ip_pattern = r"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
+        if not re.match(ip_pattern, self.ip):
+            raise ValueError("Invalid IP address")
+        
+        # Validate MAC address
+        mac_pattern = r"^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$"
+        if not re.match(mac_pattern, self.mac.upper()):
+            raise ValueError("Invalid MAC address")
+
+# Example usage:
+interface_data = {
+    "name": "eth0",
+    "ip": "192.168.1.100",
+    "mac": "00:11:22:33:44:55",
+    "status": Status.UP,
+    "speed_gbps": 1000.0
+}
+
+interface = NetworkInterface.from_dict(interface_data)
+print(interface)
+
+# Try to create an instance with invalid data
+try:
+    interface_invalid = NetworkInterface(name="", ip="invalid_ip", mac="invalid_mac")
+except ValueError as e:
+    print(e)
+```
+
+In this code:
+
+*   We define a `Status` enum to represent the status of a network interface.
+*
+
+================================================================================
+SUMMARY
+----------------------------------------
+Average Score:   100.0%
+Average TPS:     93.8 tok/s
+Tasks Completed: 2/2
+
+================================================================================

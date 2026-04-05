@@ -1,0 +1,50 @@
+================================================================================
+BENCHMARK RESULTS FOR: gemma4:31b
+================================================================================
+
+MODEL METADATA
+----------------------------------------
+Name:           gemma4:31b
+Parameters:     31.3B
+Quantization:   Q4_K_M
+Size:           18.5 GB
+Tool Support:   Yes
+Family:         gemma4
+Completed:      2026-04-04 13:43:55
+
+TASK RESULTS
+----------------------------------------
+
+
+──────────────────────────────────────────────────────────────────────
+Task: speed_warmup
+Status: ok
+Score: 0.0%
+TPS: 3.6 tokens/sec
+Time: 94.9s
+Tokens: 256 out, 29 in
+Keywords Missed: def, return, sum
+
+--- RESPONSE ---
+
+
+──────────────────────────────────────────────────────────────────────
+Task: speed_simple
+Status: ok
+Score: 0.0%
+TPS: 3.8 tokens/sec
+Time: 198.1s
+Tokens: 512 out, 48 in
+Keywords Missed: @dataclass, def __post_init__, name, ip, mac
+
+--- RESPONSE ---
+
+
+================================================================================
+SUMMARY
+----------------------------------------
+Average Score:   0.0%
+Average TPS:     3.7 tok/s
+Tasks Completed: 2/2
+
+================================================================================

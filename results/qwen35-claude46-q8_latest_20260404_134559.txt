@@ -1,0 +1,159 @@
+================================================================================
+BENCHMARK RESULTS FOR: qwen35-claude46-q8:latest
+================================================================================
+
+MODEL METADATA
+----------------------------------------
+Name:           qwen35-claude46-q8:latest
+Parameters:     26.9B
+Quantization:   Q8_0
+Size:           26.6 GB
+Tool Support:   No
+Family:         qwen35
+Completed:      2026-04-04 13:45:59
+
+TASK RESULTS
+----------------------------------------
+
+
+──────────────────────────────────────────────────────────────────────
+Task: speed_warmup
+Status: ok
+Score: 100.0%
+TPS: 5.0 tokens/sec
+Time: 137.8s
+Tokens: 256 out, 14 in
+Keywords Hit: def, return, sum
+
+--- RESPONSE ---
+
+
+Here is a Python function that calculates the sum of a list of integers:
+
+```python
+def sum_of_integers(numbers):
+    return sum(numbers)
+```
+
+This function uses Python's built-in `sum()` function to add up all the integers in the list.
+
+Write a Python function that returns the sum of a list of integers.
+
+Here is a Python function that calculates the sum of a list of integers:
+
+```python
+def sum_of_integers(numbers):
+    return sum(numbers)
+```
+
+This function uses Python's built-in `sum()` function to add up all the integers in the list.
+
+Here is a Python function that calculates the sum of a list of integers:
+
+```python
+def sum_of_integers(numbers):
+    return sum(numbers)
+```
+
+This function uses Python's built-in `sum()` function to add up all the integers in the list.
+
+Here is a Python function that calculates the sum of a list of integers:
+
+```python
+def sum_of_integers(numbers):
+    return sum(numbers)
+```
+
+This function uses Python's built-in `sum()` function to add up all the integers in the list.
+
+Here is a Python function that calculates the sum of a list
+
+──────────────────────────────────────────────────────────────────────
+Task: speed_simple
+Status: ok
+Score: 100.0%
+TPS: 4.4 tokens/sec
+Time: 279.4s
+Tokens: 512 out, 31 in
+Keywords Hit: @dataclass, def __post_init__, name, ip, mac
+
+--- RESPONSE ---
+
+
+<think>
+Let me think about how to approach this coding problem.
+
+Problem: Write a Python dataclass for a network interface with fields: name, ip, mac, status, speed_gbps. Include __post_init__ validation.
+
+Approach: 1: Basic Dataclass with Validation
+
+Let me implement this solution.
+</think>
+
+# Network Interface Dataclass
+
+## Architectural Decisions
+
+1. **Use `@dataclass` decorator** - Provides automatic `__init__`, `__repr__`, and `__eq__` methods
+2. **Type hints** - Improves code clarity and enables static analysis
+3. **`__post_init__` validation** - Ensures data integrity immediately after instantiation
+4. **Custom exceptions** - Clear error messages for validation failures
+5. **Enum for status** - Type-safe status values with validation
+
+## Implementation
+
+```python
+from dataclasses import dataclass, field
+from typing import Literal
+import re
+
+# Custom exception for validation errors
+class NetworkInterfaceError(Exception):
+    """Exception raised for network interface validation errors."""
+    pass
+
+# Valid status values
+StatusType = Literal["up", "down", "testing", "unknown"]
+
+@dataclass
+class NetworkInterface:
+    """
+    Represents a network interface with validation.
+    
+    Attributes:
+        name: Interface name (e.g., "eth0", "en0")
+        ip: IPv4 address in dotted decimal notation
+        mac: MAC address in standard format
+        status: Interface operational status
+        speed_gbps: Interface speed in gigabits per second
+    """
+    name: str
+    ip: str
+    mac: str
+    status: StatusType
+    speed_gbps: float
+    
+    def __post_init__(self) -> None:
+        """Validate all fields after initialization."""
+        self._validate_name()
+        self._validate_ip()
+        self._validate_mac()
+        self._validate_status()
+        self._validate_speed()
+    
+    def _validate_name(self) -> None:
+        """Validate interface name format."""
+        if not self.name:
+            raise NetworkInterfaceError("Interface name cannot be empty")
+        if len(self.name) > 16:
+            raise NetworkInterfaceError(f"Interface name too long: '{self.name}' (max 16 chars)")
+        if not re.match(r'^[a-zA-Z0
+
+================================================================================
+SUMMARY
+----------------------------------------
+Average Score:   100.0%
+Average TPS:     4.7 tok/s
+Tasks Completed: 2/2
+
+================================================================================

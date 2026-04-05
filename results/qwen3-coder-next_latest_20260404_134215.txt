@@ -1,0 +1,135 @@
+================================================================================
+BENCHMARK RESULTS FOR: qwen3-coder-next:latest
+================================================================================
+
+MODEL METADATA
+----------------------------------------
+Name:           qwen3-coder-next:latest
+Parameters:     79.7B
+Quantization:   Q4_K_M
+Size:           48.2 GB
+Tool Support:   Yes
+Family:         qwen3next
+Completed:      2026-04-04 13:42:15
+
+TASK RESULTS
+----------------------------------------
+
+
+──────────────────────────────────────────────────────────────────────
+Task: speed_warmup
+Status: ok
+Score: 100.0%
+TPS: 9.1 tokens/sec
+Time: 76.7s
+Tokens: 211 out, 22 in
+Keywords Hit: def, return, sum
+
+--- RESPONSE ---
+Here's a simple Python function that returns the sum of a list of integers:
+
+```python
+def sum_list(integers):
+    """
+    Returns the sum of a list of integers.
+    
+    Args:
+        integers: A list of integers
+        
+    Returns:
+        The sum of all integers in the list
+    """
+    return sum(integers)
+```
+
+**Example usage:**
+```python
+print(sum_list([1, 2, 3, 4, 5]))  # Output: 15
+print(sum_list([]))               # Output: 0
+print(sum_list([-1, 5, -3]))      # Output: 1
+```
+
+If you'd prefer to implement the sum manually without using Python's built-in `sum()` function:
+
+```python
+def sum_list(integers):
+    total = 0
+    for num in integers:
+        total += num
+    return total
+```
+
+Both versions handle empty lists (returning 0) and work with negative numbers as well.
+
+──────────────────────────────────────────────────────────────────────
+Task: speed_simple
+Status: ok
+Score: 100.0%
+TPS: 11.1 tokens/sec
+Time: 48.6s
+Tokens: 512 out, 39 in
+Keywords Hit: @dataclass, def __post_init__, name, ip, mac
+
+--- RESPONSE ---
+Here's a Python `dataclass` for a network interface with validation in `__post_init__`:
+
+```python
+from dataclasses import dataclass, field
+import re
+from typing import Optional
+
+@dataclass
+class NetworkInterface:
+    name: str
+    ip: str
+    mac: str
+    status: str
+    speed_gbps: float
+    
+    def __post_init__(self):
+        # Validate name (non-empty, no whitespace)
+        if not self.name or not self.name.strip():
+            raise ValueError("Interface name cannot be empty")
+        if re.search(r'\s', self.name):
+            raise ValueError("Interface name cannot contain whitespace")
+        
+        # Validate IP address (basic IPv4 format)
+        ip_parts = self.ip.split('.')
+        if len(ip_parts) != 4:
+            raise ValueError(f"Invalid IP address format: {self.ip}")
+        for part in ip_parts:
+            try:
+                num = int(part)
+                if not (0 <= num <= 255):
+                    raise ValueError(f"IP octet out of range: {num}")
+            except ValueError:
+                raise ValueError(f"Invalid IP address format: {self.ip}")
+        
+        # Validate MAC address (format: XX:XX:XX:XX:XX:XX or XX-XX-XX-XX-XX-XX)
+        mac_pattern = r'^([0-9A-Fa-f]{2}[:\-]){5}([0-9A-Fa-f]{2})$'
+        if not re.match(mac_pattern, self.mac):
+            raise ValueError(f"Invalid MAC address format: {self.mac}")
+        
+        # Validate status (must be one of common interface statuses)
+        valid_statuses = {'up', 'down', 'unknown', 'testing', 'dormant', 'notpresent', 'lowerlayerdown'}
+        if self.status.lower() not in valid_statuses:
+            raise ValueError(f"Invalid status '{self.status}'. Must be one of: {valid_statuses}")
+        
+        # Validate speed (must be non-negative)
+        if self.speed_gbps < 0:
+            raise ValueError(f"Speed must be non-negative, got: {self.speed_gbps}")
+```
+
+**Key features:**
+- Validates interface name is non-empty and contains no whitespace
+- Validates IP address format (basic IPv4 with octets 0-255)
+- Validates MAC address format (XX:XX:XX:XX:XX:XX or XX-XX-
+
+================================================================================
+SUMMARY
+----------------------------------------
+Average Score:   100.0%
+Average TPS:     10.1 tok/s
+Tasks Completed: 2/2
+
+================================================================================

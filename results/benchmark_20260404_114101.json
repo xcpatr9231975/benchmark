@@ -1,0 +1,143 @@
+{
+  "gemma4:31b": {
+    "_info": {
+      "has_tools": true,
+      "params": "31B",
+      "quant": "Q4_K_M",
+      "arch": "gemma4"
+    },
+    "_summary": {
+      "avg_score": 17.9,
+      "avg_tps": 9.7,
+      "tasks_ok": 7,
+      "tasks_total": 7
+    },
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 31.8,
+        "tps": 10.0,
+        "tokens_out": 256,
+        "tokens_in": 29,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "def",
+          "return",
+          "sum"
+        ]
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 52.7,
+        "tps": 9.8,
+        "tokens_out": 512,
+        "tokens_in": 48,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ]
+      },
+      "coding_pyez": {
+        "status": "ok",
+        "elapsed_sec": 106.4,
+        "tps": 9.7,
+        "tokens_out": 1024,
+        "tokens_in": 116,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "async def",
+          "Device(",
+          "ConnectError",
+          "RpcError",
+          "TypedDict",
+          "finally",
+          "neighbor",
+          "peer_as"
+        ]
+      },
+      "coding_langgraph": {
+        "status": "ok",
+        "elapsed_sec": 106.5,
+        "tps": 9.7,
+        "tokens_out": 1024,
+        "tokens_in": 100,
+        "score": 62.5,
+        "keywords_hit": [
+          "TypedDict",
+          "Device(",
+          "validation_passed",
+          "interfaces",
+          "errors"
+        ],
+        "keywords_missed": [
+          "async def",
+          "StateGraph",
+          "Established"
+        ]
+      },
+      "coding_fastmcp": {
+        "status": "ok",
+        "elapsed_sec": 106.6,
+        "tps": 9.7,
+        "tokens_out": 1024,
+        "tokens_in": 137,
+        "score": 62.5,
+        "keywords_hit": [
+          "@mcp.tool",
+          "device_ip",
+          "vrf",
+          "environ",
+          "protocol"
+        ],
+        "keywords_missed": [
+          "Device(",
+          "next_hop",
+          "prefix_count"
+        ]
+      },
+      "debug_pyez": {
+        "status": "ok",
+        "elapsed_sec": 106.9,
+        "tps": 9.6,
+        "tokens_out": 1024,
+        "tokens_in": 184,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "results = {}",
+          "results[ip]",
+          "dev.close()",
+          "junos_user",
+          "junos_pass",
+          "append"
+        ]
+      },
+      "reasoning_arch": {
+        "status": "ok",
+        "elapsed_sec": 106.5,
+        "tps": 9.7,
+        "tokens_out": 1024,
+        "tokens_in": 99,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "BFD",
+          "RSVP",
+          "timer",
+          "show bgp",
+          "show bfd",
+          "hold-time",
+          "graceful-restart",
+          "rpd"
+        ]
+      }
+    }
+  }
+}

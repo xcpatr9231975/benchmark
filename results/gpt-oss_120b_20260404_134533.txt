@@ -1,0 +1,126 @@
+================================================================================
+BENCHMARK RESULTS FOR: gpt-oss:120b
+================================================================================
+
+MODEL METADATA
+----------------------------------------
+Name:           gpt-oss:120b
+Parameters:     116.8B
+Quantization:   MXFP4
+Size:           60.9 GB
+Tool Support:   Yes
+Family:         gptoss
+Completed:      2026-04-04 13:45:33
+
+TASK RESULTS
+----------------------------------------
+
+
+──────────────────────────────────────────────────────────────────────
+Task: speed_warmup
+Status: ok
+Score: 100.0%
+TPS: 10.6 tokens/sec
+Time: 153.5s
+Tokens: 256 out, 81 in
+Keywords Hit: def, return, sum
+
+--- RESPONSE ---
+Here’s a clean, well‑documented implementation that works for any iterable of integers (e.g., a list, tuple, generator, etc.).  
+It includes type hints, a short docstring, and a couple of usage examples.
+
+```python
+from typing import Iterable, List
+
+def sum_integers(numbers: Iterable[int]) -> int:
+    """
+    Return the arithmetic sum of the given integers.
+
+    Parameters
+    ----------
+    numbers : Iterable[int]
+        Any iterable that yields integers – a list, tuple, set, generator,
+        etc.  Empty iterables are allowed and will result in 0.
+
+    Returns
+    -------
+    int
+        The sum of all the integers in *numbers*.
+
+    Examples
+    --------
+    >>> sum_integers([1, 2, 3, 4])
+    10
+    >>> sum_integers([])
+    0
+    >>> sum_integers(x for x in range(5))   # works with generators too
+    10
+    """
+    total
+
+──────────────────────────────────────────────────────────────────────
+Task: speed_simple
+Status: ok
+Score: 40.0%
+TPS: 11.9 tokens/sec
+Time: 45.2s
+Tokens: 512 out, 98 in
+Keywords Hit: ip, mac
+Keywords Missed: @dataclass, def __post_init__, name
+
+--- RESPONSE ---
+Below is a self‑contained, type‑annotated dataclass that models a network interface.  
+All fields are validated in ``__post_init__`` so that an instance can never be created in an invalid state.
+
+```python
+# network_interface.py
+from __future__ import annotations
+
+import ipaddress
+import re
+from dataclasses import dataclass, field
+from enum import Enum
+from typing import Union
+
+
+class InterfaceStatus(str, Enum):
+    """Allowed operational states for an interface."""
+    UP = "up"
+    DOWN = "down"
+    TESTING = "testing"
+    UNKNOWN = "unknown"
+
+
+_MAC_RE = re.compile(
+    r"""^(
+        (?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}      # AA:BB:CC:DD:EE:FF or AA-BB-...
+        |
+        (?:[0-9A-Fa-f]{4}\.){2}[0-9A-Fa-f]{4}        # 1234.5678.9abc (Cisco style)
+    )$""",
+    re.VERBOSE,
+)
+
+
+def _validate_ip(value: str) -> ipaddress.IPv4Address | ipaddress.IPv6Address:
+    """Return a parsed IP address or raise ValueError."""
+    try:
+        return ipaddress.ip_address(value)
+    except ValueError as exc:
+        raise ValueError(f"Invalid IP address '{value}'.") from exc
+
+
+def _validate_mac(value: str) -> str:
+    """Return a normalized MAC address (lower‑case, colon‑separated) or raise ValueError."""
+    if not isinstance(value, str):
+        raise TypeError("MAC address must be a string.")
+    if not _MAC_RE.fullmatch(value.strip()):
+
+
+================================================================================
+SUMMARY
+----------------------------------------
+Average Score:   70.0%
+Average TPS:     11.2 tok/s
+Tasks Completed: 2/2
+
+================================================================================

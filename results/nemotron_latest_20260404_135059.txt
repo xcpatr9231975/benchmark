@@ -1,0 +1,138 @@
+================================================================================
+BENCHMARK RESULTS FOR: nemotron:latest
+================================================================================
+
+MODEL METADATA
+----------------------------------------
+Name:           nemotron:latest
+Parameters:     70.6B
+Quantization:   Q4_K_M
+Size:           39.6 GB
+Tool Support:   Yes
+Family:         llama
+Completed:      2026-04-04 13:50:59
+
+TASK RESULTS
+----------------------------------------
+
+
+──────────────────────────────────────────────────────────────────────
+Task: speed_warmup
+Status: ok
+Score: 100.0%
+TPS: 3.0 tokens/sec
+Time: 155.8s
+Tokens: 256 out, 29 in
+Keywords Hit: def, return, sum
+
+--- RESPONSE ---
+Below is a simple Python function named `sum_of_integers` that takes a list of integers as input and returns their sum. This example includes basic error handling to ensure all elements in the list are integers.
+
+```python
+def sum_of_integers(integer_list):
+    """
+    Calculates the sum of all integers in a given list.
+    
+    Args:
+        integer_list (list): A list containing integers.
+    
+    Returns:
+        int: The sum of all integers in the list. If the list is empty, returns 0.
+    
+    Raises:
+        TypeError: If the input is not a list or if any element in the list is not an integer.
+    """
+    # Check if input is a list
+    if not isinstance(integer_list, list):
+        raise TypeError("Input must be a list.")
+    
+    # Initialize sum variable to 0
+    total_sum = 0
+    
+    # Iterate over each element in the list
+    for element in integer_list:
+        # Check if element is an integer
+        if not isinstance(element, int):
+            raise TypeError("All elements in the list must be integers.")
+        
+        # Add the integer to the sum
+        total_sum += element
+    
+    return total_sum
+
+# Example use cases:
+if __
+
+──────────────────────────────────────────────────────────────────────
+Task: speed_simple
+Status: ok
+Score: 100.0%
+TPS: 3.0 tokens/sec
+Time: 169.9s
+Tokens: 512 out, 46 in
+Keywords Hit: @dataclass, def __post_init__, name, ip, mac
+
+--- RESPONSE ---
+Below is an example of a Python `dataclass` for a network interface that includes the specified fields (`name`, `ip`, `mac`, `status`, and `speed_gbps`) along with a `__post_init__` method for validation:
+
+```python
+from dataclasses import dataclass, field
+from ipaddress import IPv4Address, IPv6Address
+from typing import Literal
+
+@dataclass
+class NetworkInterface:
+    name: str
+    ip: str | IPv4Address | IPv6Address  # To allow string input for ease of use
+    mac: str
+    status: Literal["up", "down", "unknown"] = "unknown"
+    speed_gbps: float | None = None
+
+    def __post_init__(self):
+        """
+        Validation checks after initialization.
+        Raises ValueError if validation fails.
+        """
+        
+        # Validate IP Address
+        if not isinstance(self.ip, (IPv4Address, IPv6Address)):
+            try:
+                self.ip = IPv4Address(self.ip) or IPv6Address(self.ip)
+            except ValueError:
+                raise ValueError(f"Invalid IP address: {self.ip}")
+        
+        # Basic MAC Address Format Validation (Note: This is a simplified check)
+        if not isinstance(self.mac, str) or len(self.mac) != 17 or self.mac.count(':') != 5:
+            raise ValueError(f"Invalid MAC address format. Expected XX:XX:XX:XX:XX:XX, got: {self.mac}")
+        
+        # Validate Status
+        if self.status not in ["up", "down", "unknown"]:
+            raise ValueError(f"Invalid status. Must be one of 'up', 'down', or 'unknown', got: {self.status}")
+        
+        # Validate Speed (if provided)
+        if self.speed_gbps is not None:
+            if not isinstance(self.speed_gbps, (int, float)) or self.speed_gbps < 0:
+                raise ValueError(f"Invalid speed. Must be a non-negative number, got: {self.speed_gbps}")
+
+# Example Usage
+if __name__ == "__main__":
+    try:
+        interface = NetworkInterface(
+            name="eth0",
+            ip="192.168.1.100",  # Automatically converts to IPv4Address
+            mac="00:11:22:33:44:55",
+            status="up",
+            speed_gbps=1.0
+        )
+        print(interface)
+    except ValueError as e:
+        print(f
+
+================================================================================
+SUMMARY
+----------------------------------------
+Average Score:   100.0%
+Average TPS:     3.0 tok/s
+Tasks Completed: 2/2
+
+================================================================================

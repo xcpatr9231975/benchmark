@@ -1,0 +1,126 @@
+================================================================================
+BENCHMARK RESULTS FOR: qwen2.5-coder:32b
+================================================================================
+
+MODEL METADATA
+----------------------------------------
+Name:           qwen2.5-coder:32b
+Parameters:     32.8B
+Quantization:   Q4_K_M
+Size:           18.5 GB
+Tool Support:   Yes
+Family:         qwen2
+Completed:      2026-04-04 13:49:56
+
+TASK RESULTS
+----------------------------------------
+
+
+──────────────────────────────────────────────────────────────────────
+Task: speed_warmup
+Status: ok
+Score: 100.0%
+TPS: 4.3 tokens/sec
+Time: 142.1s
+Tokens: 159 out, 43 in
+Keywords Hit: def, return, sum
+
+--- RESPONSE ---
+Certainly! Below is a simple Python function that takes a list of integers as input and returns their sum:
+
+```python
+def sum_of_integers(int_list):
+    """
+    Returns the sum of a list of integers.
+
+    Parameters:
+    int_list (list): A list of integers.
+
+    Returns:
+    int: The sum of the integers in the list.
+    """
+    return sum(int_list)
+
+# Example usage:
+numbers = [1, 2, 3, 4, 5]
+print(sum_of_integers(numbers))  # Output: 15
+```
+
+This function uses Python's built-in `sum()` function to calculate and return the sum of the integers in the provided list. You can test it with different lists of integers to verify its correctness.
+
+──────────────────────────────────────────────────────────────────────
+Task: speed_simple
+Status: ok
+Score: 100.0%
+TPS: 4.3 tokens/sec
+Time: 120.4s
+Tokens: 512 out, 60 in
+Keywords Hit: @dataclass, def __post_init__, name, ip, mac
+
+--- RESPONSE ---
+Certainly! Below is an example of a Python `dataclass` for a network interface that includes the specified fields and performs basic validation in the `__post_init__` method.
+
+```python
+from dataclasses import dataclass, field
+import re
+
+@dataclass
+class NetworkInterface:
+    name: str
+    ip: str
+    mac: str
+    status: str = field(default="down")
+    speed_gbps: float = field(default=1.0)
+
+    def __post_init__(self):
+        self.validate_ip()
+        self.validate_mac()
+        self.validate_status()
+        self.validate_speed()
+
+    def validate_ip(self):
+        # Simple regex for IPv4 validation
+        pattern = re.compile(r'^(\d{1,3}\.){3}\d{1,3}$')
+        if not pattern.match(self.ip):
+            raise ValueError(f"Invalid IP address: {self.ip}")
+        
+        # Further check each octet is between 0 and 255
+        for part in self.ip.split('.'):
+            if not 0 <= int(part) <= 255:
+                raise ValueError(f"Invalid IP address: {self.ip}")
+
+    def validate_mac(self):
+        # Simple regex for MAC address validation (XX:XX:XX:XX:XX:XX)
+        pattern = re.compile(r'^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$')
+        if not pattern.match(self.mac):
+            raise ValueError(f"Invalid MAC address: {self.mac}")
+
+    def validate_status(self):
+        valid_statuses = ["up", "down"]
+        if self.status.lower() not in valid_statuses:
+            raise ValueError(f"Invalid status. Must be one of {valid_statuses}: {self.status}")
+
+    def validate_speed(self):
+        if self.speed_gbps <= 0:
+            raise ValueError(f"Speed must be greater than 0: {self.speed_gbps} Gbps")
+
+# Example usage
+try:
+    nic = NetworkInterface(name="eth0", ip="192.168.1.1", mac="00:1A:2B:3C:4D:5E", status="up", speed_gbps=1.0)
+    print(nic)
+except ValueError as e:
+    print(e)
+```
+
+### Explanation:
+- **Fields**:
+  - `name`: The name of the network interface (e.g., "
+
+================================================================================
+SUMMARY
+----------------------------------------
+Average Score:   100.0%
+Average TPS:     4.3 tok/s
+Tasks Completed: 2/2
+
+================================================================================

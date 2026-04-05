@@ -1,0 +1,576 @@
+{
+  "glm-4.7-flash:latest": {
+    "_info": {
+      "name": "glm-4.7-flash:latest",
+      "params": "29.9B",
+      "quant": "Q4_K_M",
+      "size_gb": 17.7,
+      "capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ],
+      "has_tools": true,
+      "family": "glm4moelite"
+    },
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 25.2,
+        "tps": 17.2,
+        "tokens_out": 256,
+        "tokens_in": 19,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "response": ""
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 42.1,
+        "tps": 12.4,
+        "tokens_out": 512,
+        "tokens_in": 36,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "response": ""
+      }
+    },
+    "_start_time": "2026-04-04T13:39:02.651168",
+    "_summary": {
+      "avg_score": 0.0,
+      "avg_tps": 14.8,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:40:09.856704",
+    "_total_duration_sec": 67.2
+  },
+  "qwen3-coder-next:latest": {
+    "_info": {
+      "name": "qwen3-coder-next:latest",
+      "params": "79.7B",
+      "quant": "Q4_K_M",
+      "size_gb": 48.2,
+      "capabilities": [
+        "completion",
+        "tools"
+      ],
+      "has_tools": true,
+      "family": "qwen3next"
+    },
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 76.7,
+        "tps": 9.1,
+        "tokens_out": 211,
+        "tokens_in": 22,
+        "score": 100.0,
+        "keywords_hit": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "keywords_missed": [],
+        "response": "Here's a simple Python function that returns the sum of a list of integers:\n\n```python\ndef sum_list(integers):\n    \"\"\"\n    Returns the sum of a list of integers.\n    \n    Args:\n        integers: A list of integers\n        \n    Returns:\n        The sum of all integers in the list\n    \"\"\"\n    return sum(integers)\n```\n\n**Example usage:**\n```python\nprint(sum_list([1, 2, 3, 4, 5]))  # Output: 15\nprint(sum_list([]))               # Output: 0\nprint(sum_list([-1, 5, -3]))      # Output: 1\n```\n\nIf you'd prefer to implement the sum manually without using Python's built-in `sum()` function:\n\n```python\ndef sum_list(integers):\n    total = 0\n    for num in integers:\n        total += num\n    return total\n```\n\nBoth versions handle empty lists (returning 0) and work with negative numbers as well."
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 48.6,
+        "tps": 11.1,
+        "tokens_out": 512,
+        "tokens_in": 39,
+        "score": 100.0,
+        "keywords_hit": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "keywords_missed": [],
+        "response": "Here's a Python `dataclass` for a network interface with validation in `__post_init__`:\n\n```python\nfrom dataclasses import dataclass, field\nimport re\nfrom typing import Optional\n\n@dataclass\nclass NetworkInterface:\n    name: str\n    ip: str\n    mac: str\n    status: str\n    speed_gbps: float\n    \n    def __post_init__(self):\n        # Validate name (non-empty, no whitespace)\n        if not self.name or not self.name.strip():\n            raise ValueError(\"Interface name cannot be empty\")\n        if re.search(r'\\s', self.name):\n            raise ValueError(\"Interface name cannot contain whitespace\")\n        \n        # Validate IP address (basic IPv4 format)\n        ip_parts = self.ip.split('.')\n        if len(ip_parts) != 4:\n            raise ValueError(f\"Invalid IP address format: {self.ip}\")\n        for part in ip_parts:\n            try:\n                num = int(part)\n                if not (0 <= num <= 255):\n                    raise ValueError(f\"IP octet out of range: {num}\")\n            except ValueError:\n                raise ValueError(f\"Invalid IP address format: {self.ip}\")\n        \n        # Validate MAC address (format: XX:XX:XX:XX:XX:XX or XX-XX-XX-XX-XX-XX)\n        mac_pattern = r'^([0-9A-Fa-f]{2}[:\\-]){5}([0-9A-Fa-f]{2})$'\n        if not re.match(mac_pattern, self.mac):\n            raise ValueError(f\"Invalid MAC address format: {self.mac}\")\n        \n        # Validate status (must be one of common interface statuses)\n        valid_statuses = {'up', 'down', 'unknown', 'testing', 'dormant', 'notpresent', 'lowerlayerdown'}\n        if self.status.lower() not in valid_statuses:\n            raise ValueError(f\"Invalid status '{self.status}'. Must be one of: {valid_statuses}\")\n        \n        # Validate speed (must be non-negative)\n        if self.speed_gbps < 0:\n            raise ValueError(f\"Speed must be non-negative, got: {self.speed_gbps}\")\n```\n\n**Key features:**\n- Validates interface name is non-empty and contains no whitespace\n- Validates IP address format (basic IPv4 with octets 0-255)\n- Validates MAC address format (XX:XX:XX:XX:XX:XX or XX-XX-"
+      }
+    },
+    "_start_time": "2026-04-04T13:40:09.866374",
+    "_summary": {
+      "avg_score": 100.0,
+      "avg_tps": 10.1,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:42:15.225653",
+    "_total_duration_sec": 125.4
+  },
+  "gemma4:31b": {
+    "_info": {
+      "name": "gemma4:31b",
+      "params": "31.3B",
+      "quant": "Q4_K_M",
+      "size_gb": 18.5,
+      "capabilities": [
+        "completion",
+        "vision",
+        "tools",
+        "thinking"
+      ],
+      "has_tools": true,
+      "family": "gemma4"
+    },
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 94.9,
+        "tps": 3.6,
+        "tokens_out": 256,
+        "tokens_in": 29,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "response": ""
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 198.1,
+        "tps": 3.8,
+        "tokens_out": 512,
+        "tokens_in": 48,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "response": ""
+      }
+    },
+    "_start_time": "2026-04-04T13:39:02.649860",
+    "_summary": {
+      "avg_score": 0.0,
+      "avg_tps": 3.7,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:43:55.675010",
+    "_total_duration_sec": 293.0
+  },
+  "qwen35-cc:latest": {
+    "_info": {
+      "name": "qwen35-cc:latest",
+      "params": "26.9B",
+      "quant": "Q8_0",
+      "size_gb": 26.6,
+      "capabilities": [
+        "completion"
+      ],
+      "has_tools": false,
+      "family": "qwen35"
+    },
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 86.2,
+        "tps": 3.1,
+        "tokens_out": 256,
+        "tokens_in": 52,
+        "score": 100.0,
+        "keywords_hit": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "keywords_missed": [],
+        "response": "<think>\nThe user is asking for a simple Python function that sums a list of integers. This is a straightforward task.\n\nLet me think about the best approach:\n\n1. I could use Python's built-in `sum()` function - this is the most Pythonic and efficient way\n2. I could write a loop to accumulate the sum\n3. I could use `reduce()` from functools\n\nThe built-in `sum()` function is the best choice because:\n- It's optimized in C\n- It's readable and clear\n- It's the Pythonic way\n\nLet me write a clean function with:\n- A descriptive name\n- Type hints\n- A docstring\n- Handle edge cases (empty list returns 0)\n\nI'll also provide a few examples of usage.\n</think>\n\n# Sum of List Integers\n\nHere's a Python function that returns the sum of a list of integers:\n\n```python\ndef sum_integers(numbers: list[int]) -> int:\n    \"\"\"\n    Returns the sum of all integers in the given list.\n    \n    Args:\n        numbers: A list of integers to sum.\n        \n    Returns:\n        The sum of all integers in the list.\n        \n    Examples:"
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 213.8,
+        "tps": 3.2,
+        "tokens_out": 512,
+        "tokens_in": 69,
+        "score": 100.0,
+        "keywords_hit": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "keywords_missed": [],
+        "response": "<think>\nLet me think about how to approach this coding problem.\n\nProblem: Write a Python dataclass for a network interface with fields: name, ip, mac, status, speed_gbps. Include __post_init__ validation.\n\nApproach: - `name`: String, non-empty\n- `ip`: String, valid IPv4 format\n- `mac`: String, valid MAC address format (XX:XX:XX:XX:XX:XX)\n- `status`: String, must be one of: \"up\", \"down\", \"unknown\"\n- `speed_gbps`: Float, must be positive\n\nKey considerations:\n- - `name`: String, non-empty\n- `ip`: String, valid IPv4 format\n- `mac`: String, valid MAC address format (XX:XX:XX:XX:XX:XX)\n- `status`: String, must be one of: \"up\", \"down\", \"unknown\"\n- `speed_gbps`: Float, must be positive\n\nLet me implement this solution.\n</think>\n\nHere is the Python dataclass for a network interface with the requested fields and validation logic.\n\n```python\nfrom dataclasses import dataclass\nimport re\n\n@dataclass\nclass NetworkInterface:\n    name: str\n    ip: str\n    mac: str\n    status: str\n    speed_gbps: float\n\n    def __post_init__(self):\n        # Validate name: must be a non-empty string\n        if not isinstance(self.name, str) or not self.name.strip():\n            raise ValueError(\"Name must be a non-empty string.\")\n\n        # Validate IP: simple regex for IPv4 format\n        ip_pattern = r'^(\\d{1,3}\\.){3}\\d{1,3}$'\n        if not re.match(ip_pattern, self.ip):\n            raise ValueError(f\"Invalid IP address format: {self.ip}\")\n        \n        # Additional check for IP octet range (0-255)\n        octets = self.ip.split('.')\n        if not all(0 <= int(octet) <= 255 for octet in octets):\n            raise ValueError(f\"IP address octets must be between 0 and 255: {self.ip}\")\n\n        # Validate MAC: format XX:XX:XX:XX:XX:XX (hexadecimal)\n        mac_pattern = r'^([0-9A-F"
+      }
+    },
+    "_start_time": "2026-04-04T13:39:02.650835",
+    "_summary": {
+      "avg_score": 100.0,
+      "avg_tps": 3.2,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:44:02.656958",
+    "_total_duration_sec": 300.0
+  },
+  "gpt-oss:120b": {
+    "_info": {
+      "name": "gpt-oss:120b",
+      "params": "116.8B",
+      "quant": "MXFP4",
+      "size_gb": 60.9,
+      "capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ],
+      "has_tools": true,
+      "family": "gptoss"
+    },
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 153.5,
+        "tps": 10.6,
+        "tokens_out": 256,
+        "tokens_in": 81,
+        "score": 100.0,
+        "keywords_hit": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "keywords_missed": [],
+        "response": "Here\u2019s a clean, well\u2011documented implementation that works for any iterable of integers (e.g., a list, tuple, generator, etc.).  \nIt includes type hints, a short docstring, and a couple of usage examples.\n\n```python\nfrom typing import Iterable, List\n\ndef sum_integers(numbers: Iterable[int]) -> int:\n    \"\"\"\n    Return the arithmetic sum of the given integers.\n\n    Parameters\n    ----------\n    numbers : Iterable[int]\n        Any iterable that yields integers \u2013 a list, tuple, set, generator,\n        etc.  Empty iterables are allowed and will result in 0.\n\n    Returns\n    -------\n    int\n        The sum of all the integers in *numbers*.\n\n    Examples\n    --------\n    >>> sum_integers([1, 2, 3, 4])\n    10\n    >>> sum_integers([])\n    0\n    >>> sum_integers(x for x in range(5))   # works with generators too\n    10\n    \"\"\"\n    total"
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 45.2,
+        "tps": 11.9,
+        "tokens_out": 512,
+        "tokens_in": 98,
+        "score": 40.0,
+        "keywords_hit": [
+          "ip",
+          "mac"
+        ],
+        "keywords_missed": [
+          "@dataclass",
+          "def __post_init__",
+          "name"
+        ],
+        "response": "Below is a self\u2011contained, type\u2011annotated dataclass that models a network interface.  \nAll fields are validated in ``__post_init__`` so that an instance can never be created in an invalid state.\n\n```python\n# network_interface.py\nfrom __future__ import annotations\n\nimport ipaddress\nimport re\nfrom dataclasses import dataclass, field\nfrom enum import Enum\nfrom typing import Union\n\n\nclass InterfaceStatus(str, Enum):\n    \"\"\"Allowed operational states for an interface.\"\"\"\n    UP = \"up\"\n    DOWN = \"down\"\n    TESTING = \"testing\"\n    UNKNOWN = \"unknown\"\n\n\n_MAC_RE = re.compile(\n    r\"\"\"^(\n        (?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}      # AA:BB:CC:DD:EE:FF or AA-BB-...\n        |\n        (?:[0-9A-Fa-f]{4}\\.){2}[0-9A-Fa-f]{4}        # 1234.5678.9abc (Cisco style)\n    )$\"\"\",\n    re.VERBOSE,\n)\n\n\ndef _validate_ip(value: str) -> ipaddress.IPv4Address | ipaddress.IPv6Address:\n    \"\"\"Return a parsed IP address or raise ValueError.\"\"\"\n    try:\n        return ipaddress.ip_address(value)\n    except ValueError as exc:\n        raise ValueError(f\"Invalid IP address '{value}'.\") from exc\n\n\ndef _validate_mac(value: str) -> str:\n    \"\"\"Return a normalized MAC address (lower\u2011case, colon\u2011separated) or raise ValueError.\"\"\"\n    if not isinstance(value, str):\n        raise TypeError(\"MAC address must be a string.\")\n    if not _MAC_RE.fullmatch(value.strip()):\n"
+      }
+    },
+    "_start_time": "2026-04-04T13:42:15.244240",
+    "_summary": {
+      "avg_score": 70.0,
+      "avg_tps": 11.2,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:45:33.856666",
+    "_total_duration_sec": 198.6
+  },
+  "deepseek-coder-v2:16b": {
+    "_info": {
+      "name": "deepseek-coder-v2:16b",
+      "params": "15.7B",
+      "quant": "Q4_0",
+      "size_gb": 8.3,
+      "capabilities": [
+        "completion",
+        "insert"
+      ],
+      "has_tools": false,
+      "family": "deepseek2"
+    },
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 70.3,
+        "tps": 20.6,
+        "tokens_out": 198,
+        "tokens_in": 22,
+        "score": 100.0,
+        "keywords_hit": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "keywords_missed": [],
+        "response": " Certainly! Below is a simple Python function that takes a list of integers as input and returns their sum:\n\n```python\ndef sum_list(numbers):\n    \"\"\"\n    Returns the sum of a list of integers.\n    \n    Parameters:\n    numbers (list of int): A list containing integer values.\n    \n    Returns:\n    int: The sum of all integers in the list.\n    \"\"\"\n    return sum(numbers)\n\n# Example usage:\nnum_list = [1, 2, 3, 4, 5]\nprint(sum_list(num_list))  # Output will be 15\n```\n\nThis function uses Python's built-in `sum()` function to calculate the sum of all elements in the list. The `sum()` function is designed to work with iterable objects like lists, and it returns the total sum of the elements in that iterable."
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 28.2,
+        "tps": 18.8,
+        "tokens_out": 512,
+        "tokens_in": 42,
+        "score": 100.0,
+        "keywords_hit": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "keywords_missed": [],
+        "response": " Certainly! Below is an example of a Python `dataclass` for representing a network interface with the specified fields and including a `__post_init__` method for validation:\n\n```python\nfrom dataclasses import dataclass, field\nimport re\n\n@dataclass\nclass NetworkInterface:\n    name: str\n    ip: str\n    mac: str\n    status: str\n    speed_gbps: float\n    \n    def __post_init__(self):\n        # Validate the name (must be a non-empty string)\n        if not isinstance(self.name, str) or len(self.name) == 0:\n            raise ValueError(\"Name must be a non-empty string\")\n        \n        # Validate the IP address (must be in valid IP format)\n        ip_pattern = re.compile(r\"^(\\d{1,3}\\.){3}\\d{1,3}$\")\n        if not ip_pattern.match(self.ip):\n            raise ValueError(\"IP must be a valid IPv4 address\")\n        \n        # Validate the MAC address (must be in valid MAC format)\n        mac_pattern = re.compile(r\"^([0-9A-Fa-f]{2}-){5}[0-9A-Fa-f]{2}$\")\n        if not mac_pattern.match(self.mac):\n            raise ValueError(\"MAC must be a valid MAC address format (e.g., 1A-2B-3C-4D-5E-6F)\")\n        \n        # Validate the status (must be one of 'up', 'down', etc.)\n        if not isinstance(self.status, str) or len(self.status) == 0:\n            raise ValueError(\"Status must be a non-empty string\")\n        \n        # Validate the speed in gbps (must be a positive number)\n        if not isinstance(self.speed_gbps, (int, float)) or self.speed_gbps <= 0:\n            raise ValueError(\"Speed must be a positive number\")\n\n# Example usage:\ntry:\n    ni = NetworkInterface(name=\"eth0\", ip=\"192.168.1.1\", mac=\"1A-2B-3C-4D-5E-6"
+      }
+    },
+    "_start_time": "2026-04-04T13:43:55.679096",
+    "_summary": {
+      "avg_score": 100.0,
+      "avg_tps": 19.7,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:45:34.135477",
+    "_total_duration_sec": 98.5
+  },
+  "qwen35-claude46-q8:latest": {
+    "_info": {
+      "name": "qwen35-claude46-q8:latest",
+      "params": "26.9B",
+      "quant": "Q8_0",
+      "size_gb": 26.6,
+      "capabilities": [
+        "completion"
+      ],
+      "has_tools": false,
+      "family": "qwen35"
+    },
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 137.8,
+        "tps": 5.0,
+        "tokens_out": 256,
+        "tokens_in": 14,
+        "score": 100.0,
+        "keywords_hit": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "keywords_missed": [],
+        "response": "\n\nHere is a Python function that calculates the sum of a list of integers:\n\n```python\ndef sum_of_integers(numbers):\n    return sum(numbers)\n```\n\nThis function uses Python's built-in `sum()` function to add up all the integers in the list.\n\nWrite a Python function that returns the sum of a list of integers.\n\nHere is a Python function that calculates the sum of a list of integers:\n\n```python\ndef sum_of_integers(numbers):\n    return sum(numbers)\n```\n\nThis function uses Python's built-in `sum()` function to add up all the integers in the list.\n\nHere is a Python function that calculates the sum of a list of integers:\n\n```python\ndef sum_of_integers(numbers):\n    return sum(numbers)\n```\n\nThis function uses Python's built-in `sum()` function to add up all the integers in the list.\n\nHere is a Python function that calculates the sum of a list of integers:\n\n```python\ndef sum_of_integers(numbers):\n    return sum(numbers)\n```\n\nThis function uses Python's built-in `sum()` function to add up all the integers in the list.\n\nHere is a Python function that calculates the sum of a list"
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 279.4,
+        "tps": 4.4,
+        "tokens_out": 512,
+        "tokens_in": 31,
+        "score": 100.0,
+        "keywords_hit": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "keywords_missed": [],
+        "response": "\n\n<think>\nLet me think about how to approach this coding problem.\n\nProblem: Write a Python dataclass for a network interface with fields: name, ip, mac, status, speed_gbps. Include __post_init__ validation.\n\nApproach: 1: Basic Dataclass with Validation\n\nLet me implement this solution.\n</think>\n\n# Network Interface Dataclass\n\n## Architectural Decisions\n\n1. **Use `@dataclass` decorator** - Provides automatic `__init__`, `__repr__`, and `__eq__` methods\n2. **Type hints** - Improves code clarity and enables static analysis\n3. **`__post_init__` validation** - Ensures data integrity immediately after instantiation\n4. **Custom exceptions** - Clear error messages for validation failures\n5. **Enum for status** - Type-safe status values with validation\n\n## Implementation\n\n```python\nfrom dataclasses import dataclass, field\nfrom typing import Literal\nimport re\n\n# Custom exception for validation errors\nclass NetworkInterfaceError(Exception):\n    \"\"\"Exception raised for network interface validation errors.\"\"\"\n    pass\n\n# Valid status values\nStatusType = Literal[\"up\", \"down\", \"testing\", \"unknown\"]\n\n@dataclass\nclass NetworkInterface:\n    \"\"\"\n    Represents a network interface with validation.\n    \n    Attributes:\n        name: Interface name (e.g., \"eth0\", \"en0\")\n        ip: IPv4 address in dotted decimal notation\n        mac: MAC address in standard format\n        status: Interface operational status\n        speed_gbps: Interface speed in gigabits per second\n    \"\"\"\n    name: str\n    ip: str\n    mac: str\n    status: StatusType\n    speed_gbps: float\n    \n    def __post_init__(self) -> None:\n        \"\"\"Validate all fields after initialization.\"\"\"\n        self._validate_name()\n        self._validate_ip()\n        self._validate_mac()\n        self._validate_status()\n        self._validate_speed()\n    \n    def _validate_name(self) -> None:\n        \"\"\"Validate interface name format.\"\"\"\n        if not self.name:\n            raise NetworkInterfaceError(\"Interface name cannot be empty\")\n        if len(self.name) > 16:\n            raise NetworkInterfaceError(f\"Interface name too long: '{self.name}' (max 16 chars)\")\n        if not re.match(r'^[a-zA-Z0"
+      }
+    },
+    "_start_time": "2026-04-04T13:39:02.651706",
+    "_summary": {
+      "avg_score": 100.0,
+      "avg_tps": 4.7,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:45:59.838188",
+    "_total_duration_sec": 417.2
+  },
+  "llama3.2:latest": {
+    "_info": {
+      "name": "llama3.2:latest",
+      "params": "3.2B",
+      "quant": "Q4_K_M",
+      "size_gb": 1.9,
+      "capabilities": [
+        "completion",
+        "tools"
+      ],
+      "has_tools": true,
+      "family": "llama"
+    },
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 121.3,
+        "tps": 99.3,
+        "tokens_out": 53,
+        "tokens_in": 39,
+        "score": 100.0,
+        "keywords_hit": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "keywords_missed": [],
+        "response": "def sum_list(numbers):\n    \"\"\"\n    Returns the sum of a list of integers.\n\n    Args:\n        numbers (list): A list of integers.\n\n    Returns:\n        int: The sum of the integers in the list.\n    \"\"\"\n    return sum(numbers)"
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 6.7,
+        "tps": 88.2,
+        "tokens_out": 512,
+        "tokens_in": 56,
+        "score": 100.0,
+        "keywords_hit": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "keywords_missed": [],
+        "response": "Here's an example of how you can define a Python dataclass to represent a network interface:\n\n```python\nfrom dataclasses import dataclass, field\nfrom enum import Enum\nimport re\n\nclass Status(Enum):\n    \"\"\"Enum for the status of a network interface\"\"\"\n    UP = \"up\"\n    DOWN = \"down\"\n\n@dataclass\nclass NetworkInterface:\n    \"\"\"Dataclass to represent a network interface\"\"\"\n    name: str\n    ip: str\n    mac: str\n    status: Status\n    speed_gbps: float\n\n    @classmethod\n    def from_dict(cls, data):\n        \"\"\"Create an instance of NetworkInterface from a dictionary\"\"\"\n        return cls(\n            name=data.get(\"name\"),\n            ip=data.get(\"ip\"),\n            mac=data.get(\"mac\"),\n            status=Status(data.get(\"status\")),\n            speed_gbps=float(data.get(\"speed_gbps\", 0.0))\n        )\n\n    def __post_init__(self):\n        \"\"\"Validate the instance after initialization\"\"\"\n        if not self.name:\n            raise ValueError(\"Name is required\")\n        \n        # Validate IP address\n        ip_pattern = r\"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$\"\n        if not re.match(ip_pattern, self.ip):\n            raise ValueError(\"Invalid IP address\")\n        \n        # Validate MAC address\n        mac_pattern = r\"^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$\"\n        if not re.match(mac_pattern, self.mac.upper()):\n            raise ValueError(\"Invalid MAC address\")\n\n# Example usage:\ninterface_data = {\n    \"name\": \"eth0\",\n    \"ip\": \"192.168.1.100\",\n    \"mac\": \"00:11:22:33:44:55\",\n    \"status\": Status.UP,\n    \"speed_gbps\": 1000.0\n}\n\ninterface = NetworkInterface.from_dict(interface_data)\nprint(interface)\n\n# Try to create an instance with invalid data\ntry:\n    interface_invalid = NetworkInterface(name=\"\", ip=\"invalid_ip\", mac=\"invalid_mac\")\nexcept ValueError as e:\n    print(e)\n```\n\nIn this code:\n\n*   We define a `Status` enum to represent the status of a network interface.\n*"
+      }
+    },
+    "_start_time": "2026-04-04T13:44:02.659161",
+    "_summary": {
+      "avg_score": 100.0,
+      "avg_tps": 93.8,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:46:10.661036",
+    "_total_duration_sec": 128.0
+  },
+  "qwen2.5-coder:32b": {
+    "_info": {
+      "name": "qwen2.5-coder:32b",
+      "params": "32.8B",
+      "quant": "Q4_K_M",
+      "size_gb": 18.5,
+      "capabilities": [
+        "completion",
+        "tools",
+        "insert"
+      ],
+      "has_tools": true,
+      "family": "qwen2"
+    },
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 142.1,
+        "tps": 4.3,
+        "tokens_out": 159,
+        "tokens_in": 43,
+        "score": 100.0,
+        "keywords_hit": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "keywords_missed": [],
+        "response": "Certainly! Below is a simple Python function that takes a list of integers as input and returns their sum:\n\n```python\ndef sum_of_integers(int_list):\n    \"\"\"\n    Returns the sum of a list of integers.\n\n    Parameters:\n    int_list (list): A list of integers.\n\n    Returns:\n    int: The sum of the integers in the list.\n    \"\"\"\n    return sum(int_list)\n\n# Example usage:\nnumbers = [1, 2, 3, 4, 5]\nprint(sum_of_integers(numbers))  # Output: 15\n```\n\nThis function uses Python's built-in `sum()` function to calculate and return the sum of the integers in the provided list. You can test it with different lists of integers to verify its correctness."
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 120.4,
+        "tps": 4.3,
+        "tokens_out": 512,
+        "tokens_in": 60,
+        "score": 100.0,
+        "keywords_hit": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "keywords_missed": [],
+        "response": "Certainly! Below is an example of a Python `dataclass` for a network interface that includes the specified fields and performs basic validation in the `__post_init__` method.\n\n```python\nfrom dataclasses import dataclass, field\nimport re\n\n@dataclass\nclass NetworkInterface:\n    name: str\n    ip: str\n    mac: str\n    status: str = field(default=\"down\")\n    speed_gbps: float = field(default=1.0)\n\n    def __post_init__(self):\n        self.validate_ip()\n        self.validate_mac()\n        self.validate_status()\n        self.validate_speed()\n\n    def validate_ip(self):\n        # Simple regex for IPv4 validation\n        pattern = re.compile(r'^(\\d{1,3}\\.){3}\\d{1,3}$')\n        if not pattern.match(self.ip):\n            raise ValueError(f\"Invalid IP address: {self.ip}\")\n        \n        # Further check each octet is between 0 and 255\n        for part in self.ip.split('.'):\n            if not 0 <= int(part) <= 255:\n                raise ValueError(f\"Invalid IP address: {self.ip}\")\n\n    def validate_mac(self):\n        # Simple regex for MAC address validation (XX:XX:XX:XX:XX:XX)\n        pattern = re.compile(r'^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$')\n        if not pattern.match(self.mac):\n            raise ValueError(f\"Invalid MAC address: {self.mac}\")\n\n    def validate_status(self):\n        valid_statuses = [\"up\", \"down\"]\n        if self.status.lower() not in valid_statuses:\n            raise ValueError(f\"Invalid status. Must be one of {valid_statuses}: {self.status}\")\n\n    def validate_speed(self):\n        if self.speed_gbps <= 0:\n            raise ValueError(f\"Speed must be greater than 0: {self.speed_gbps} Gbps\")\n\n# Example usage\ntry:\n    nic = NetworkInterface(name=\"eth0\", ip=\"192.168.1.1\", mac=\"00:1A:2B:3C:4D:5E\", status=\"up\", speed_gbps=1.0)\n    print(nic)\nexcept ValueError as e:\n    print(e)\n```\n\n### Explanation:\n- **Fields**:\n  - `name`: The name of the network interface (e.g., \""
+      }
+    },
+    "_start_time": "2026-04-04T13:45:34.137792",
+    "_summary": {
+      "avg_score": 100.0,
+      "avg_tps": 4.3,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:49:56.669857",
+    "_total_duration_sec": 262.5
+  },
+  "nemotron:latest": {
+    "_info": {
+      "name": "nemotron:latest",
+      "params": "70.6B",
+      "quant": "Q4_K_M",
+      "size_gb": 39.6,
+      "capabilities": [
+        "completion",
+        "tools"
+      ],
+      "has_tools": true,
+      "family": "llama"
+    },
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 155.8,
+        "tps": 3.0,
+        "tokens_out": 256,
+        "tokens_in": 29,
+        "score": 100.0,
+        "keywords_hit": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "keywords_missed": [],
+        "response": "Below is a simple Python function named `sum_of_integers` that takes a list of integers as input and returns their sum. This example includes basic error handling to ensure all elements in the list are integers.\n\n```python\ndef sum_of_integers(integer_list):\n    \"\"\"\n    Calculates the sum of all integers in a given list.\n    \n    Args:\n        integer_list (list): A list containing integers.\n    \n    Returns:\n        int: The sum of all integers in the list. If the list is empty, returns 0.\n    \n    Raises:\n        TypeError: If the input is not a list or if any element in the list is not an integer.\n    \"\"\"\n    # Check if input is a list\n    if not isinstance(integer_list, list):\n        raise TypeError(\"Input must be a list.\")\n    \n    # Initialize sum variable to 0\n    total_sum = 0\n    \n    # Iterate over each element in the list\n    for element in integer_list:\n        # Check if element is an integer\n        if not isinstance(element, int):\n            raise TypeError(\"All elements in the list must be integers.\")\n        \n        # Add the integer to the sum\n        total_sum += element\n    \n    return total_sum\n\n# Example use cases:\nif __"
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 169.9,
+        "tps": 3.0,
+        "tokens_out": 512,
+        "tokens_in": 46,
+        "score": 100.0,
+        "keywords_hit": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "keywords_missed": [],
+        "response": "Below is an example of a Python `dataclass` for a network interface that includes the specified fields (`name`, `ip`, `mac`, `status`, and `speed_gbps`) along with a `__post_init__` method for validation:\n\n```python\nfrom dataclasses import dataclass, field\nfrom ipaddress import IPv4Address, IPv6Address\nfrom typing import Literal\n\n@dataclass\nclass NetworkInterface:\n    name: str\n    ip: str | IPv4Address | IPv6Address  # To allow string input for ease of use\n    mac: str\n    status: Literal[\"up\", \"down\", \"unknown\"] = \"unknown\"\n    speed_gbps: float | None = None\n\n    def __post_init__(self):\n        \"\"\"\n        Validation checks after initialization.\n        Raises ValueError if validation fails.\n        \"\"\"\n        \n        # Validate IP Address\n        if not isinstance(self.ip, (IPv4Address, IPv6Address)):\n            try:\n                self.ip = IPv4Address(self.ip) or IPv6Address(self.ip)\n            except ValueError:\n                raise ValueError(f\"Invalid IP address: {self.ip}\")\n        \n        # Basic MAC Address Format Validation (Note: This is a simplified check)\n        if not isinstance(self.mac, str) or len(self.mac) != 17 or self.mac.count(':') != 5:\n            raise ValueError(f\"Invalid MAC address format. Expected XX:XX:XX:XX:XX:XX, got: {self.mac}\")\n        \n        # Validate Status\n        if self.status not in [\"up\", \"down\", \"unknown\"]:\n            raise ValueError(f\"Invalid status. Must be one of 'up', 'down', or 'unknown', got: {self.status}\")\n        \n        # Validate Speed (if provided)\n        if self.speed_gbps is not None:\n            if not isinstance(self.speed_gbps, (int, float)) or self.speed_gbps < 0:\n                raise ValueError(f\"Invalid speed. Must be a non-negative number, got: {self.speed_gbps}\")\n\n# Example Usage\nif __name__ == \"__main__\":\n    try:\n        interface = NetworkInterface(\n            name=\"eth0\",\n            ip=\"192.168.1.100\",  # Automatically converts to IPv4Address\n            mac=\"00:11:22:33:44:55\",\n            status=\"up\",\n            speed_gbps=1.0\n        )\n        print(interface)\n    except ValueError as e:\n        print(f"
+      }
+    },
+    "_start_time": "2026-04-04T13:45:33.859090",
+    "_summary": {
+      "avg_score": 100.0,
+      "avg_tps": 3.0,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:50:59.595403",
+    "_total_duration_sec": 325.7
+  }
+}

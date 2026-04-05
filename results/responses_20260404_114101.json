@@ -1,0 +1,150 @@
+{
+  "gemma4:31b": {
+    "_info": {
+      "has_tools": true,
+      "params": "31B",
+      "quant": "Q4_K_M",
+      "arch": "gemma4"
+    },
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 31.8,
+        "tps": 10.0,
+        "tokens_out": 256,
+        "tokens_in": 29,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "response": ""
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 52.7,
+        "tps": 9.8,
+        "tokens_out": 512,
+        "tokens_in": 48,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "response": ""
+      },
+      "coding_pyez": {
+        "status": "ok",
+        "elapsed_sec": 106.4,
+        "tps": 9.7,
+        "tokens_out": 1024,
+        "tokens_in": 116,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "async def",
+          "Device(",
+          "ConnectError",
+          "RpcError",
+          "TypedDict",
+          "finally",
+          "neighbor",
+          "peer_as"
+        ],
+        "response": ""
+      },
+      "coding_langgraph": {
+        "status": "ok",
+        "elapsed_sec": 106.5,
+        "tps": 9.7,
+        "tokens_out": 1024,
+        "tokens_in": 100,
+        "score": 62.5,
+        "keywords_hit": [
+          "TypedDict",
+          "Device(",
+          "validation_passed",
+          "interfaces",
+          "errors"
+        ],
+        "keywords_missed": [
+          "async def",
+          "StateGraph",
+          "Established"
+        ],
+        "response": "```python\nimport asyncio\nfrom typing import TypedDict, List, Dict, Any\nfrom jnpr.op import Device\nfrom jnpr.exceptions import ConnectError\n\nclass OnboardingState(TypedDict):\n    device_ip: str\n    credentials: Dict[str, str]\n    phase: str\n    interfaces: List[str]\n    bgp_neighbors: List[str]\n    errors: List[str]\n    validation_passed: bool\n    error_details: List[str]\n\ndef sync_validate_juniper(state: OnboardingState) -> tuple[bool, List[str]]:\n    \"\"\"\n    Synchronous PyEZ logic to be executed in a thread to avoid blocking the event loop.\n    \"\"\"\n    errors = []\n    try:\n        # Initialize PyEZ Device\n        with Device(\n            host=state[\"device_ip\"], \n            user=state[\"credentials\"].get(\"username\"), \n            passwd=state[\"credentials\"].get(\"password\")\n        ) as dev:\n            \n            # 1. Validate Interfaces\n            # Fetching terse interface information\n            int_info = dev.rpc.get_interface_information(terse=True)\n            # PyEZ returns an object; we iterate through the interface list\n            # Note: PyEZ structure varies slightly by Junos version, usually accessed via .xpath or attributes\n            all_interfaces = int_info.xpath('//interface')\n            \n            for target_iface in state[\"interfaces\"]:\n                #"
+      },
+      "coding_fastmcp": {
+        "status": "ok",
+        "elapsed_sec": 106.6,
+        "tps": 9.7,
+        "tokens_out": 1024,
+        "tokens_in": 137,
+        "score": 62.5,
+        "keywords_hit": [
+          "@mcp.tool",
+          "device_ip",
+          "vrf",
+          "environ",
+          "protocol"
+        ],
+        "keywords_missed": [
+          "Device(",
+          "next_hop",
+          "prefix_count"
+        ],
+        "response": "```python\nimport os\nfrom typing import List, Dict, Any, Optional\nfrom fastmcp import FastMCP\nfrom jnpr.junos import Device\nfrom jnpr.junos.exception import ConnectError\n\n# Initialize FastMCP server\nmcp = FastMCP(\"juniper-route-lookup\")\n\n@mcp.tool()\nasync def lookup_juniper_routes(\n    device_ip: str, \n    vrf: str = \"default\", \n    prefix: Optional[str] = None\n) -> Dict[str, Any]:\n    \"\"\"\n    Look up the routing table on a Juniper Junos device via NETCONF.\n    \n    Args:\n        device_ip: The management IP address of the Juniper device.\n        vrf: The VRF name (defaults to 'default' which maps to inet.0).\n        prefix: Optional specific prefix to filter for (e.g., '10.0.0.0/24').\n    \n    Returns:\n        A dictionary containing the VRF name, total prefix count, and a list of \n        route details including protocol, next hop, and metric.\n    \"\"\"\n    user = os.getenv(\"JUNOS_USER\")\n    passwd = os.getenv(\"JUNOS_PASS\")\n\n    if not user or not passwd:\n        return {\"error\": \"JUNOS_USER or JUNOS_PASS environment variables are not set.\"}\n\n    # Determine the table"
+      },
+      "debug_pyez": {
+        "status": "ok",
+        "elapsed_sec": 106.9,
+        "tps": 9.6,
+        "tokens_out": 1024,
+        "tokens_in": 184,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "results = {}",
+          "results[ip]",
+          "dev.close()",
+          "junos_user",
+          "junos_pass",
+          "append"
+        ],
+        "response": "```python\nimport os # Fix: Added missing import for os\nfrom jnpr.junos import Device # Fix: Added missing import for PyEZ Device\n\ndef get_mpls_lsp_stats(devices):"
+      },
+      "reasoning_arch": {
+        "status": "ok",
+        "elapsed_sec": 106.5,
+        "tps": 9.7,
+        "tokens_out": 1024,
+        "tokens_in": 99,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "BFD",
+          "RSVP",
+          "timer",
+          "show bgp",
+          "show bfd",
+          "hold-time",
+          "graceful-restart",
+          "rpd"
+        ],
+        "response": ""
+      }
+    },
+    "_summary": {
+      "avg_score": 17.9,
+      "avg_tps": 9.7,
+      "tasks_ok": 7,
+      "tasks_total": 7
+    }
+  }
+}

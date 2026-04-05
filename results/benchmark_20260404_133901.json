@@ -1,0 +1,546 @@
+{
+  "glm-4.7-flash:latest": {
+    "_info": {
+      "name": "glm-4.7-flash:latest",
+      "params": "29.9B",
+      "quant": "Q4_K_M",
+      "size_gb": 17.7,
+      "capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ],
+      "has_tools": true,
+      "family": "glm4moelite"
+    },
+    "_summary": {
+      "avg_score": 0.0,
+      "avg_tps": 14.8,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:40:09.856704",
+    "_total_duration_sec": 67.2,
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 25.2,
+        "tps": 17.2,
+        "tokens_out": 256,
+        "tokens_in": 19,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "def",
+          "return",
+          "sum"
+        ]
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 42.1,
+        "tps": 12.4,
+        "tokens_out": 512,
+        "tokens_in": 36,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ]
+      }
+    }
+  },
+  "qwen3-coder-next:latest": {
+    "_info": {
+      "name": "qwen3-coder-next:latest",
+      "params": "79.7B",
+      "quant": "Q4_K_M",
+      "size_gb": 48.2,
+      "capabilities": [
+        "completion",
+        "tools"
+      ],
+      "has_tools": true,
+      "family": "qwen3next"
+    },
+    "_summary": {
+      "avg_score": 100.0,
+      "avg_tps": 10.1,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:42:15.225653",
+    "_total_duration_sec": 125.4,
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 76.7,
+        "tps": 9.1,
+        "tokens_out": 211,
+        "tokens_in": 22,
+        "score": 100.0,
+        "keywords_hit": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "keywords_missed": []
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 48.6,
+        "tps": 11.1,
+        "tokens_out": 512,
+        "tokens_in": 39,
+        "score": 100.0,
+        "keywords_hit": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "keywords_missed": []
+      }
+    }
+  },
+  "gemma4:31b": {
+    "_info": {
+      "name": "gemma4:31b",
+      "params": "31.3B",
+      "quant": "Q4_K_M",
+      "size_gb": 18.5,
+      "capabilities": [
+        "completion",
+        "vision",
+        "tools",
+        "thinking"
+      ],
+      "has_tools": true,
+      "family": "gemma4"
+    },
+    "_summary": {
+      "avg_score": 0.0,
+      "avg_tps": 3.7,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:43:55.675010",
+    "_total_duration_sec": 293.0,
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 94.9,
+        "tps": 3.6,
+        "tokens_out": 256,
+        "tokens_in": 29,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "def",
+          "return",
+          "sum"
+        ]
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 198.1,
+        "tps": 3.8,
+        "tokens_out": 512,
+        "tokens_in": 48,
+        "score": 0.0,
+        "keywords_hit": [],
+        "keywords_missed": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ]
+      }
+    }
+  },
+  "qwen35-cc:latest": {
+    "_info": {
+      "name": "qwen35-cc:latest",
+      "params": "26.9B",
+      "quant": "Q8_0",
+      "size_gb": 26.6,
+      "capabilities": [
+        "completion"
+      ],
+      "has_tools": false,
+      "family": "qwen35"
+    },
+    "_summary": {
+      "avg_score": 100.0,
+      "avg_tps": 3.2,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:44:02.656958",
+    "_total_duration_sec": 300.0,
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 86.2,
+        "tps": 3.1,
+        "tokens_out": 256,
+        "tokens_in": 52,
+        "score": 100.0,
+        "keywords_hit": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "keywords_missed": []
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 213.8,
+        "tps": 3.2,
+        "tokens_out": 512,
+        "tokens_in": 69,
+        "score": 100.0,
+        "keywords_hit": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "keywords_missed": []
+      }
+    }
+  },
+  "gpt-oss:120b": {
+    "_info": {
+      "name": "gpt-oss:120b",
+      "params": "116.8B",
+      "quant": "MXFP4",
+      "size_gb": 60.9,
+      "capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ],
+      "has_tools": true,
+      "family": "gptoss"
+    },
+    "_summary": {
+      "avg_score": 70.0,
+      "avg_tps": 11.2,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:45:33.856666",
+    "_total_duration_sec": 198.6,
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 153.5,
+        "tps": 10.6,
+        "tokens_out": 256,
+        "tokens_in": 81,
+        "score": 100.0,
+        "keywords_hit": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "keywords_missed": []
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 45.2,
+        "tps": 11.9,
+        "tokens_out": 512,
+        "tokens_in": 98,
+        "score": 40.0,
+        "keywords_hit": [
+          "ip",
+          "mac"
+        ],
+        "keywords_missed": [
+          "@dataclass",
+          "def __post_init__",
+          "name"
+        ]
+      }
+    }
+  },
+  "deepseek-coder-v2:16b": {
+    "_info": {
+      "name": "deepseek-coder-v2:16b",
+      "params": "15.7B",
+      "quant": "Q4_0",
+      "size_gb": 8.3,
+      "capabilities": [
+        "completion",
+        "insert"
+      ],
+      "has_tools": false,
+      "family": "deepseek2"
+    },
+    "_summary": {
+      "avg_score": 100.0,
+      "avg_tps": 19.7,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:45:34.135477",
+    "_total_duration_sec": 98.5,
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 70.3,
+        "tps": 20.6,
+        "tokens_out": 198,
+        "tokens_in": 22,
+        "score": 100.0,
+        "keywords_hit": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "keywords_missed": []
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 28.2,
+        "tps": 18.8,
+        "tokens_out": 512,
+        "tokens_in": 42,
+        "score": 100.0,
+        "keywords_hit": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "keywords_missed": []
+      }
+    }
+  },
+  "qwen35-claude46-q8:latest": {
+    "_info": {
+      "name": "qwen35-claude46-q8:latest",
+      "params": "26.9B",
+      "quant": "Q8_0",
+      "size_gb": 26.6,
+      "capabilities": [
+        "completion"
+      ],
+      "has_tools": false,
+      "family": "qwen35"
+    },
+    "_summary": {
+      "avg_score": 100.0,
+      "avg_tps": 4.7,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:45:59.838188",
+    "_total_duration_sec": 417.2,
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 137.8,
+        "tps": 5.0,
+        "tokens_out": 256,
+        "tokens_in": 14,
+        "score": 100.0,
+        "keywords_hit": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "keywords_missed": []
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 279.4,
+        "tps": 4.4,
+        "tokens_out": 512,
+        "tokens_in": 31,
+        "score": 100.0,
+        "keywords_hit": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "keywords_missed": []
+      }
+    }
+  },
+  "llama3.2:latest": {
+    "_info": {
+      "name": "llama3.2:latest",
+      "params": "3.2B",
+      "quant": "Q4_K_M",
+      "size_gb": 1.9,
+      "capabilities": [
+        "completion",
+        "tools"
+      ],
+      "has_tools": true,
+      "family": "llama"
+    },
+    "_summary": {
+      "avg_score": 100.0,
+      "avg_tps": 93.8,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:46:10.661036",
+    "_total_duration_sec": 128.0,
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 121.3,
+        "tps": 99.3,
+        "tokens_out": 53,
+        "tokens_in": 39,
+        "score": 100.0,
+        "keywords_hit": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "keywords_missed": []
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 6.7,
+        "tps": 88.2,
+        "tokens_out": 512,
+        "tokens_in": 56,
+        "score": 100.0,
+        "keywords_hit": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "keywords_missed": []
+      }
+    }
+  },
+  "qwen2.5-coder:32b": {
+    "_info": {
+      "name": "qwen2.5-coder:32b",
+      "params": "32.8B",
+      "quant": "Q4_K_M",
+      "size_gb": 18.5,
+      "capabilities": [
+        "completion",
+        "tools",
+        "insert"
+      ],
+      "has_tools": true,
+      "family": "qwen2"
+    },
+    "_summary": {
+      "avg_score": 100.0,
+      "avg_tps": 4.3,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:49:56.669857",
+    "_total_duration_sec": 262.5,
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 142.1,
+        "tps": 4.3,
+        "tokens_out": 159,
+        "tokens_in": 43,
+        "score": 100.0,
+        "keywords_hit": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "keywords_missed": []
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 120.4,
+        "tps": 4.3,
+        "tokens_out": 512,
+        "tokens_in": 60,
+        "score": 100.0,
+        "keywords_hit": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "keywords_missed": []
+      }
+    }
+  },
+  "nemotron:latest": {
+    "_info": {
+      "name": "nemotron:latest",
+      "params": "70.6B",
+      "quant": "Q4_K_M",
+      "size_gb": 39.6,
+      "capabilities": [
+        "completion",
+        "tools"
+      ],
+      "has_tools": true,
+      "family": "llama"
+    },
+    "_summary": {
+      "avg_score": 100.0,
+      "avg_tps": 3.0,
+      "tasks_ok": 2,
+      "tasks_total": 2
+    },
+    "_completion_time": "2026-04-04T13:50:59.595403",
+    "_total_duration_sec": 325.7,
+    "_tasks": {
+      "speed_warmup": {
+        "status": "ok",
+        "elapsed_sec": 155.8,
+        "tps": 3.0,
+        "tokens_out": 256,
+        "tokens_in": 29,
+        "score": 100.0,
+        "keywords_hit": [
+          "def",
+          "return",
+          "sum"
+        ],
+        "keywords_missed": []
+      },
+      "speed_simple": {
+        "status": "ok",
+        "elapsed_sec": 169.9,
+        "tps": 3.0,
+        "tokens_out": 512,
+        "tokens_in": 46,
+        "score": 100.0,
+        "keywords_hit": [
+          "@dataclass",
+          "def __post_init__",
+          "name",
+          "ip",
+          "mac"
+        ],
+        "keywords_missed": []
+      }
+    }
+  }
+}

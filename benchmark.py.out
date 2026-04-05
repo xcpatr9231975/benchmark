@@ -1,0 +1,94 @@
+
+==========================================================================================
+  OLLAMA MODEL INVENTORY
+==========================================================================================
+  Model                                   Params      Quant      Size Capabilities
+  ─────────────────────────────────────────────────────────────────────────────────────
+  deepseek-coder-v2:16b                    15.7B       Q4_0      8.3G completion, insert
+  gemma4:31b                               31.3B     Q4_K_M     18.5G completion, vision, tools, thinking
+  glm-4.7-flash:latest                     29.9B     Q4_K_M     17.7G completion, tools, thinking
+  gpt-oss:120b                            116.8B      MXFP4     60.9G completion, tools, thinking
+  llama3.2:latest                           3.2B     Q4_K_M      1.9G completion, tools
+  nemotron:latest                          70.6B     Q4_K_M     39.6G completion, tools
+  qwen2.5-coder:32b                        32.8B     Q4_K_M     18.5G completion, tools, insert
+  qwen3-coder-next:latest                  79.7B     Q4_K_M     48.2G completion, tools
+  qwen35-cc:latest                         26.9B       Q8_0     26.6G completion
+  qwen35-claude46-q8:latest                26.9B       Q8_0     26.6G completion
+  ─────────────────────────────────────────────────────────────────────────────────────
+  Total: 10 models
+
+
+🔍 Detecting tool support...
+   qwen35-claude46-q8:latest                ❌ no tools
+   qwen3-coder-next:latest                  ✅ tools
+   gpt-oss:120b                             ✅ tools
+   qwen2.5-coder:32b                        ✅ tools
+   glm-4.7-flash:latest                     ✅ tools
+   gemma4:31b                               ✅ tools
+   deepseek-coder-v2:16b                    ❌ no tools
+   nemotron:latest                          ✅ tools
+
+=================================================================
+  Benchmark Start: 20260403_214225
+  Models: 8 | Tasks: 7 | Runs: 1
+=================================================================
+
+🤖 qwen35-claude46-q8:latest  [26.9B Q8_0]
+   Tools: ❌  |  Arch: qwen35
+-----------------------------------------------------------------
+  ⏳ Speed: Warmup                       ✅    7.6 tok/s | score=100.0% | 43.1s
+  ⏳ Speed: Simple Code                  ✅    3.9 tok/s | score=100.0% | 132.7s
+  ⏳ Coding: PyEZ BGP                    ✅    3.8 tok/s | score=100.0% | 272.0s
+  ⏳ Coding: LangGraph Node              ✅    3.7 tok/s | score=100.0% | 280.2s
+  ⏳ Coding: FastMCP Tool                ✅    3.9 tok/s | score= 87.5% | 263.2s
+     missed: ['Device(']
+  ⏳ Debug: Fix PyEZ Bugs                ✅    7.6 tok/s | score= 50.0% | 92.9s
+     missed: ['junos_user', 'junos_pass', 'append']
+  ⏳ Reasoning: Network Architecture     ✅    5.6 tok/s | score= 62.5% | 184.6s
+     missed: ['show bfd', 'hold-time', 'rpd']
+  ────────────────────────────────────────────────────────────
+  Summary: avg_score=85.7%  avg_tps=5.2  tasks=7/7
+
+🤖 qwen3-coder-next:latest  [79.7B Q4_K_M]
+   Tools: ✅  |  Arch: qwen3next
+-----------------------------------------------------------------
+  ⏳ Speed: Warmup                       ✅   18.9 tok/s | score=100.0% | 39.1s
+  ⏳ Speed: Simple Code                  ✅   22.7 tok/s | score=100.0% | 23.4s
+  ⏳ Coding: PyEZ BGP                    ✅   18.2 tok/s | score=100.0% | 22.7s
+  ⏳ Coding: LangGraph Node              ✅   21.6 tok/s | score= 87.5% | 36.6s
+     missed: ['StateGraph']
+  ⏳ Coding: FastMCP Tool                ✅   21.7 tok/s | score=100.0% | 24.4s
+  ⏳ Debug: Fix PyEZ Bugs                ✅   21.1 tok/s | score= 66.7% | 16.5s
+     missed: ['junos_user', 'junos_pass']
+  ⏳ Reasoning: Network Architecture     ✅   21.1 tok/s | score= 62.5% | 49.4s
+     missed: ['show bgp', 'hold-time', 'graceful-restart']
+  ────────────────────────────────────────────────────────────
+  Summary: avg_score=88.1%  avg_tps=20.8  tasks=7/7
+
+🤖 gpt-oss:120b  [116.8B MXFP4]
+   Tools: ✅  |  Arch: gptoss
+-----------------------------------------------------------------
+  ⏳ Speed: Warmup                       ✅   16.3 tok/s | score=100.0% | 46.9s
+  ⏳ Speed: Simple Code                  ✅   16.2 tok/s | score= 80.0% | 32.4s
+     missed: ['def __post_init__']
+  ⏳ Coding: PyEZ BGP                    ✅   17.8 tok/s | score= 87.5% | 58.6s
+     missed: ['finally']
+  ⏳ Coding: LangGraph Node              ✅   18.2 tok/s | score=100.0% | 56.9s
+  ⏳ Coding: FastMCP Tool                ✅   17.3 tok/s | score= 87.5% | 60.3s
+     missed: ['Device(']
+  ⏳ Debug: Fix PyEZ Bugs                ✅   19.1 tok/s | score= 50.0% | 54.9s
+     missed: ['dev.close()', 'junos_user', 'junos_pass']
+  ⏳ Reasoning: Network Architecture     ✅   18.2 tok/s | score=  0.0% | 57.4s
+     missed: ['BFD', 'RSVP', 'timer', 'show bgp', 'show bfd', 'hold-time', 'graceful-restart', 'rpd']
+  ────────────────────────────────────────────────────────────
+  Summary: avg_score=72.1%  avg_tps=17.6  tasks=7/7
+
+🤖 qwen2.5-coder:32b  [32.8B Q4_K_M]
+   Tools: ✅  |  Arch: qwen2
+-----------------------------------------------------------------
+  ⏳ Speed: Warmup                       ❌ timeout 
+  ⏳ Speed: Simple Code                  ✅    4.4 tok/s | score=100.0% | 135.3s
+  ⏳ Coding: PyEZ BGP                    ✅    4.5 tok/s | score=100.0% | 92.2s
+  ⏳ Coding: LangGraph Node              ✅    4.3 tok/s | score= 87.5% | 104.2s
+     missed: ['StateGraph']
+  ⏳ Coding: FastMCP Tool               
